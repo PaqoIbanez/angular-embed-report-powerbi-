@@ -1,0 +1,51 @@
+<!-- src/app/pages/login/login.component.html -->
+<div class="login-container">
+  <div class="login-box">
+    <h2>Iniciar Sesión</h2>
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <bmb-input
+        label="Correo electrónico"
+        placeholder="ejemplo@dominio.com"
+        icon="email"
+        autocomplete="email"
+        errorMessage="El correo electrónico ingresado no es válido. Asegúrate de incluir @ y un dominio"
+        tooltip="Aquí ingresa tu correo institucional"
+        [disabled]="isLoading"
+        appearance="normal"
+        [control]="getFormControl('email')"
+        [showError]="showErrors['email']"
+      ></bmb-input>
+
+      <bmb-input
+        type="password"
+        label="Contraseña"
+        placeholder="Contraseña"
+        icon="lock"
+        autocomplete="current-password"
+        errorMessage="Debe tener al menos 8 caracteres"
+        tooltip="Aquí ingresa tu contraseña"
+        [disabled]="isLoading"
+        appearance="normal"
+        [control]="getFormControl('password')"
+        [showError]="showErrors['password']"
+      ></bmb-input>
+
+      <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+      
+      <button
+        bmbButton
+        appearance="primary"
+        type="submit"
+        [disabled]="isLoading || userForm.invalid"
+      >
+        <ng-container *ngIf="!isLoading; else loadingTpl">
+          Acceder
+        </ng-container>
+        <ng-template #loadingTpl>
+          <span class="spinner"></span>
+          Cargando...
+        </ng-template>
+      </button>
+    </form>
+  </div>
+</div>

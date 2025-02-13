@@ -1,3 +1,4 @@
+
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
@@ -17,7 +18,7 @@ describe('AppComponent', () => {
   it(`should have the 'bamboo-app' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('bamboo-app');
+    expect(app.getUserInfo).toEqual('bamboo-app');
   });
 
   it('should render title', () => {
