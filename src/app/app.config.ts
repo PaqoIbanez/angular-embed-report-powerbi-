@@ -1,3 +1,4 @@
+// src/app/app.config.ts
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, importProvidersFrom, inject } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';

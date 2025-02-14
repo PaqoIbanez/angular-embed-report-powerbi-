@@ -1,3 +1,4 @@
+// src/app/interceptors/auth.interceptor.ts
 import {
   HttpErrorResponse,
   HttpEvent,

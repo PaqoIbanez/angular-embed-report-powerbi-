@@ -1,3 +1,4 @@
+// src/app/pages/report/report.component.ts
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
