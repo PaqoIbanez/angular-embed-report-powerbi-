@@ -1,11 +1,10 @@
-// src/app/services/api.service.ts
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
-export interface EmbedInfoResponse {
+interface EmbedInfoResponse {
   accessToken: string;
   embedUrl: string;
   expiry: string;
@@ -15,34 +14,20 @@ export interface EmbedInfoResponse {
   providedIn: 'root'
 } )
 export class ApiService {
-  private baseUrl = environment.BASE_URL;
+  private baseUrl = environment.BASE_URL; // Usando environment
 
   constructor( private http: HttpClient ) { }
 
-  /**
-   * Método existente (opcional)
-   */
   getEmbedInfo(): Observable<EmbedInfoResponse> {
-    return this.http.get<EmbedInfoResponse>( `${ this.baseUrl }/Embed/getEmbedToken`, { withCredentials: true } )
-      .pipe( catchError( this.handleError ) );
-  }
-
-  /**
-   * Nuevo método que envía el token en los headers.
-   */
-  getEmbedInfoWithToken( token: string ): Observable<EmbedInfoResponse> {
-    const headers = new HttpHeaders( {
-      'Authorization': `Bearer ${ token }` // Ajusta el formato según lo requiera tu backend
-    } );
-    return this.http.get<EmbedInfoResponse>( `${ this.baseUrl }/Embed/getEmbedToken`, {
-      withCredentials: true,
-      headers
-    } ).pipe( catchError( this.handleError ) );
+    return this.http.get<EmbedInfoResponse>( `${ this.baseUrl }/Embed/getEmbedToken`, { withCredentials: true } ).pipe(
+      catchError( this.handleError )
+    );
   }
 
   private handleError( error: HttpErrorResponse ) {
     console.error( 'API Error:', error );
     let errorMessage = 'Ocurrió un error al obtener los datos. Por favor, inténtelo de nuevo más tarde.';
+
     if ( error.error instanceof ErrorEvent ) {
       errorMessage = `Error: ${ error.error.message }`;
     } else {

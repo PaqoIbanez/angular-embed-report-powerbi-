@@ -1,4 +1,3 @@
-// src/app/guards/auth.guard.ts
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { first, tap } from 'rxjs';
