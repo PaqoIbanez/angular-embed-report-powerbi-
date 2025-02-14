@@ -45,13 +45,18 @@ export class AppComponent implements OnInit {
 
   // constructor(public router: Router, private authService: AuthService) {} // Inyecta AuthService
 
- ngOnInit(): void {
-  this.authService.isAuthenticated$.subscribe(isAuthenticated => {
-    if (isAuthenticated) {
-      this.router.navigate(['/report']);
-    }
-  });
-}
+  ngOnInit(): void {
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.router.navigate(['/report']);
+      }
+    });
+
+    this.authInterceptor.logoutRequest.subscribe(() => { // Subscribe to logoutRequest event
+      console.log('AppComponent: Received logoutRequest event from AuthInterceptor');
+      this.authService.logout(); // Now call logout here
+    });
+  }
 
   onSubmit() {
     if (this.userForm.valid) {

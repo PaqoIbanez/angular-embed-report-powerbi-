@@ -13,34 +13,35 @@ export class RootRedirectComponent implements OnInit {
 
   ngOnInit(): void {
     const token = this.getCookie( 'token' );
-    console.log( 'TOKEN VALUE: ', token );
-
-    if ( token && token !== null ) {
-      // Si existe el token, realiza la petición a /Embed/getEmbedToken
+    if ( token ) {
+      // Si existe el token, se hace la petición a /Embed/getEmbedToken enviando el token
       this.apiService.getEmbedInfoWithToken( token ).subscribe( {
-        next: () => {
-          // Petición exitosa: redirige a /report
+        next: ( response ) => {
+          // Si la petición responde con 200, redirige a /report
           this.router.navigate( [ '/report' ] );
         },
         error: ( error ) => {
+          // Si ocurre cualquier error, redirige a /login
           console.error( 'Error al obtener embed info:', error );
-          // Si hay error en la petición, redirige a /login
           this.router.navigate( [ '/login' ] );
         },
       } );
     } else {
-      // Si no existe token, redirige de inmediato a /login
+      // Si no existe el token, redirige directamente a /login
       this.router.navigate( [ '/login' ] );
     }
   }
 
+  /**
+   * Función auxiliar para obtener el valor de una cookie por su nombre.
+   */
   private getCookie( name: string ): string | null {
     const nameEQ = name + "=";
     const ca = document.cookie.split( ';' );
-    for ( let c of ca ) {
-      c = c.trim();
+    for ( let i = 0; i < ca.length; i++ ) {
+      let c = ca[ i ].trim();
       if ( c.indexOf( nameEQ ) === 0 ) {
-        return c.substring( nameEQ.length );
+        return c.substring( nameEQ.length, c.length );
       }
     }
     return null;
