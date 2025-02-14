@@ -13,9 +13,9 @@ export class RootRedirectComponent implements OnInit {
 
   ngOnInit(): void {
     const token = this.getCookie( 'token' );
-    console.log('TOKEN VALUE: ', token);
-    
-    if ( token ) {
+    console.log( 'TOKEN VALUE: ', token );
+
+    if ( token && token !== null ) {
       // Si existe el token, realiza la petición a /Embed/getEmbedToken
       this.apiService.getEmbedInfoWithToken( token ).subscribe( {
         next: () => {
